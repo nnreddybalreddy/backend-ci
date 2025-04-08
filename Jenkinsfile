@@ -8,9 +8,7 @@
         ansiColor('xterm')
     }
     stages {
-
-        stages {
-         stage('read the version'){
+        stage('read the version'){
             steps{
                 defpackageJson =readJSON file: 'package.json'
                 defappVersion =packageJson.version
