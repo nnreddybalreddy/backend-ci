@@ -7,6 +7,10 @@
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
+    environment{
+        defappVersion =''//variable declaration
+    } 
+
     stages {
         stage('Read the version') {
             steps {
