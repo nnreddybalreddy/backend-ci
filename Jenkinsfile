@@ -3,7 +3,7 @@
         label 'AGENT-1'
     }
     options {
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 600, unit: 'MINUTES')
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
