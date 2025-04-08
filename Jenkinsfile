@@ -15,6 +15,14 @@
                """
             }
         }
+        stage('Install Dependencies') {
+            steps {
+               sh """
+                npm install
+               """
+            }
+        }
+
     }
     post { 
         always { 
