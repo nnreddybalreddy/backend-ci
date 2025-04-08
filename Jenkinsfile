@@ -3,7 +3,7 @@
         label 'AGENT-1'
     }
     options {
-        timeout(time: 600, unit: 'MINUTES')
+        timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
@@ -17,6 +17,16 @@
                 }
             }
         }
+        stage('Install Dependencies') {
+            steps {
+               sh """
+                 npm install
+                 ls -ltr
+                 echo "application version:  $appVersion"
+               """
+            }
+        }
+
     }
     post { 
         always { 
