@@ -8,30 +8,31 @@
         ansiColor('xterm')
     }
     environment{
-        def appVersion = '' //variable declaration
+        defappVersion =''//variable declaration
     }    
     stages {
         stage('read the version'){
             steps{
                 script{
-                    def packageJson = readJSON file: 'package.json'
-                    appVersion = packageJson.version
+                    defpackageJson =readJSON file: 'package.json'
+                    appVersion =packageJson.version
                     echo "application version: $appVersion"
                 }
-            }
-        }   
+            }    
 
+
+        }        
         stage('Install Dependencies') {
             steps {
                sh """
-                npm install
-                ls -ltr
-                echo "application version:  $appVersion"                
+                 npm install
+                 ls -ltr
+                 echo "application version: $appVersion"
                """
             }
         }
-
     }
+
     post { 
         always { 
             echo 'I will always say Hello again!'
