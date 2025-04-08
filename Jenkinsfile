@@ -1,4 +1,4 @@
-pipeline {
+       pipeline {
     agent {
         label 'AGENT-1'
     }
@@ -7,32 +7,15 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    parameters{
-        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
-    }
-    environment{
-        def appVersion = ''
-    }
     stages {
-        stage('read the version'){
-            steps{
-                script{
-                    def packageJson = readJSON file: 'package.json'
-                    appVersion = packageJson.version
-                    echo "application version: $appVersion"
-                }
+        stage('test') {
+            steps {
+               sh """
+                echo "this is testing"
+               """
             }
         }
-        // stage('Install Dependencies') {
-        //     steps {
-        //        sh """
-        //         npm install
-        //         ls -ltr
-        //         echo "application version: $appVersion"
-        //        """
-        //     }
-        // }        
-    }   
+    }
     post { 
         always { 
             echo 'I will always say Hello again!'
@@ -44,5 +27,5 @@ pipeline {
         failure { 
             echo 'I will run when pipeline is failure'
         }
-    }         
-}       
+    }
+}
