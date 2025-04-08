@@ -10,8 +10,8 @@
     stages {
         stage('read the version'){
             steps{
-                defpackageJson =readJSON file: 'package.json'
-                defappVersion =packageJson.version
+                def packageJson =readJSON file: 'package.json'
+                def appVersion =packageJson.version
                 echo "application version:  $appVersion"
             }
         }        
