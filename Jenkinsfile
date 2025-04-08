@@ -11,10 +11,7 @@ pipeline {
         booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
     }
     environment{
-        def appVersion = '' //variable declaration
-        // nexusUrl = 'nexus.daws78s.online:8081'
-        // region = "us-east-1"
-        // account_id = "315069654700"
+        def appVersion = ''
     }
     stages {
         stage('read the version'){
