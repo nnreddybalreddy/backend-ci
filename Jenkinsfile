@@ -19,6 +19,7 @@
             steps {
                sh """
                 npm install
+                ls -ltr
                """
             }
         }
