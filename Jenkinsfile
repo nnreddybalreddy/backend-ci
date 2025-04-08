@@ -8,12 +8,12 @@
         ansiColor('xterm')
     }
     stages {
-        stage('read the version'){
-            steps{
+        stage('Read the version') {
+            steps {
                 script{
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
-                    echo "application version: $appVersion"
+                    echo "App version: ${appVersion}"
                 }
             }
         }
