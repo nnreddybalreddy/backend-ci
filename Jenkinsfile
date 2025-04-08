@@ -9,9 +9,6 @@
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.narendra.shop:8081'
-        region = "us-east-1"
-        account_id = "905418111046"
     }    
     stages {
         stage('read the version'){
