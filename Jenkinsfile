@@ -9,12 +9,11 @@
     }
     stages {
         stage('read the version'){
-            steps{
-                def packageJson =readJSON file: 'package.json'
-                def appVersion =packageJson.version
-                echo "application version:  $appVersion"
-            }
-        }        
+             steps{
+                 def packageJson = readJSON file: 'package.json'
+                 def appVersion = packageJson.version
+             }
+         }      
 
         stage('Install Dependencies') {
             steps {
