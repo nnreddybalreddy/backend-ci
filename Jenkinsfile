@@ -11,7 +11,7 @@ pipeline {
         booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
     }
     environment{
-        def appVersion = '' //variable declaration
+        def appVersion = ''
     }
     stages {
         stage('read the version'){
@@ -23,15 +23,15 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies') {
-            steps {
-               sh """
-                npm install
-                ls -ltr
-                echo "application version: $appVersion"
-               """
-            }
-        }        
+        // stage('Install Dependencies') {
+        //     steps {
+        //        sh """
+        //         npm install
+        //         ls -ltr
+        //         echo "application version: $appVersion"
+        //        """
+        //     }
+        // }        
     }   
     post { 
         always { 
