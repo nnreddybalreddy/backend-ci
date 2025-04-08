@@ -10,8 +10,8 @@
     stages {
         stage('read the version'){
              steps{
-                 def packageJson = readJSON file: 'package.json'
-                 def appVersion = packageJson.version
+                def packageJson = readJSON file: 'package.json'
+                def appVersion = packageJson.version
              }
          }      
 
