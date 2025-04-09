@@ -7,25 +7,33 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    stages {
-        stage('test') {
-            steps {
-               sh """
-                ls -ltr
-               """
-            }
-        }
+    environment{
+        defappVersion =''//variable declaration
+    }    
 
+    stages {
+        stage('read the version'){
+            steps{
+                script{
+                    defpackageJson =readJSON file: 'package.json'
+                    appVersion =packageJson.version
+                    echo "application version: $appVersion"
+                }
+            }    
+
+
+        }        
         stage('Install Dependencies') {
             steps {
                sh """
                  npm install
                  ls -ltr
+                 echo "application version: $appVersion"
                """
             }
         }
-
     }
+
     post { 
         always { 
             echo 'I will always say Hello again!'
