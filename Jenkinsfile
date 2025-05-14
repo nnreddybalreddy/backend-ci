@@ -1,4 +1,4 @@
-pipeline {
+       pipeline {
     agent {
         label 'AGENT-1'
     }
@@ -7,85 +7,15 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    parameters{
-        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
-    }    
-    environment{
-        defappVersion =''
-        nexusUrl ='nexus.narendra.shop:8081'
-        region ="us-east-1"
-        account_id ="905418111046"
-
-    }    
-
     stages {
-        stage('read the version'){
-            steps{
-                script{
-                    def packageJson =readJSON file: 'package.json'
-                    appVersion =packageJson.version
-                    echo "application version: $appVersion"
-                }
-            }    
-
-
-        }        
-        stage('Install Dependencies') {
+        stage('test') {
             steps {
                sh """
-                 npm install
-                 ls -ltr
-                 echo "application version: $appVersion"
+                echo "this is testing"
                """
             }
         }
-        stage('Build'){
-            steps{
-                sh """
-                zip -q -r backend-${appVersion}.zip * -x Jenkinsfile -x backend-${appVersion}.zip
-                ls -ltr
-                """
-            }
-        }
-        stage('Nexus Artifact Upload'){
-            steps{
-                script{
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: "${nexusUrl}",
-                        groupId: 'com.expense',
-                        version: "${appVersion}",
-                        repository: "backend",
-                        credentialsId: 'nexus-auth',
-                        artifacts: [
-                            [artifactId: "backend" ,
-                            classifier: '',
-                            file: "backend-" + "${appVersion}" + '.zip',
-                            type: 'zip']
-                        ]
-                    )
-                }
-            }
-        }
-        stage('Deploy'){
-            when{
-                expression{
-                    params.deploy
-                }
-            }
-            steps{
-                script{
-                    def params = [
-                        string(name: 'appVersion', value: "${appVersion}")
-                    ]
-                    build job: 'backend-deploy', parameters: params, wait: false
-                }
-            }
-        }
-        
     }
-
     post { 
         always { 
             echo 'I will always say Hello again!'
@@ -99,4 +29,3 @@ pipeline {
         }
     }
 }
-
