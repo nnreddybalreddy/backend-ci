@@ -5,14 +5,20 @@
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
-        ansiColor('Xterm')
+        ansiColor('xterm')
     }
+    environment{
+        defappVersion =''//variable declaration
+    } 
+
     stages {
-        stage('test') {
+        stage('Read the version') {
             steps {
-               sh """
-                ls -ltr
-               """
+                script{
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "App version: ${appVersion}"
+                }
             }
         }
         stage('Install Dependencies') {
@@ -20,10 +26,19 @@
                sh """
                  npm install
                  ls -ltr
+                 echo "application version:  $appVersion"
                """
             }
         }
-        
+        // stage('Build'){
+        //     steps{
+        //         sh """
+        //         zip -q -r backend-${appVersion}.zip * -x Jenkinsfile -x backend-${appVersion}.zip
+        //         ls -ltr
+        //         """
+        //     }
+        // }        
+
     }
     post { 
         always { 
