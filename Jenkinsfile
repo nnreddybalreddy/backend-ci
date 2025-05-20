@@ -8,13 +8,14 @@ pipeline {
         ansiColor('xterm')
     }
     stages {
-        stage('test') {
+       stage('test') {
             steps {
                sh """
-                echo "this is testing"
+                ls -ltr
                """
             }
         }
+
     }
     post { 
         always { 
